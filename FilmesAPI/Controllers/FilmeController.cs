@@ -43,12 +43,11 @@ namespace FilmesAPI.Controllers
         public IActionResult RecuperaFilmePorId(int id)
         {
             Filme filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
-            if (filme != null)
-            {
-                ReadFilmeDto filmeDto = _mapper.Map<ReadFilmeDto>(filme);
-                return Ok(filmeDto);
-            }
-            return NotFound();
+
+            if (filme is null) return NotFound();
+            
+            ReadFilmeDto filmeDto = _mapper.Map<ReadFilmeDto>(filme);
+            return Ok(filmeDto);
         }
 
         [HttpPut("{id}")]
@@ -56,10 +55,7 @@ namespace FilmesAPI.Controllers
         {
             Filme filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
 
-            if (filme is null)
-            {
-                return NotFound();
-            }
+            if (filme is null) return NotFound();
 
             _mapper.Map(filmeDto, filme);
             _context.SaveChanges();
@@ -72,14 +68,11 @@ namespace FilmesAPI.Controllers
         {
             Filme filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
 
-            if (filme is null)
-            {
-                return NotFound();
-            }
+            if (filme is null) return NotFound();
 
             _context.Remove(filme);
             _context.SaveChanges();
-
+            
             return NoContent();
         }
     }
