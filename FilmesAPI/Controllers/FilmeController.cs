@@ -14,17 +14,17 @@ namespace FilmesAPI.Controllers
     [Route("[controller]")]
     public class FilmeController : ControllerBase
     {
-        private FilmeContext _context;
+        private AppDbContext _context;
         private IMapper _mapper;
 
-        public FilmeController(FilmeContext context, IMapper mapper)
+        public FilmeController(AppDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
         [HttpPost]
-        public IActionResult AdicionaFilme([FromBody] CreateFilmeDto filmeDto)
+        public IActionResult AdicionaFilme([FromBody] CreateEnderecoDto filmeDto)
         {
             Filme filme = _mapper.Map<Filme>(filmeDto);
 
@@ -46,12 +46,12 @@ namespace FilmesAPI.Controllers
 
             if (filme is null) return NotFound();
             
-            ReadFilmeDto filmeDto = _mapper.Map<ReadFilmeDto>(filme);
+            ReadEnderecoDto filmeDto = _mapper.Map<ReadEnderecoDto>(filme);
             return Ok(filmeDto);
         }
 
         [HttpPut("{id}")]
-        public IActionResult AtualizaFilme(int id, [FromBody] UpdateFilmeDto filmeDto)
+        public IActionResult AtualizaFilme(int id, [FromBody] UpdateEnderecoDto filmeDto)
         {
             Filme filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
 
