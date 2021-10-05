@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace FilmesAPI.Models
@@ -22,5 +23,10 @@ namespace FilmesAPI.Models
 
         [Range(1, 200, ErrorMessage = "A Duracao deve ter no minimo 1 e no máximo 200 minutos.")]
         public int Duracao { get; set; }
+
+        public int ClassificacaoEtaria { get; set; }
+
+        [JsonIgnore]
+        public virtual List<Sessao> Sessoes { get; set; }
     }
 }
