@@ -24,7 +24,7 @@ namespace FilmesAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult AdicionaFilme([FromBody] CreateEnderecoDto filmeDto)
+        public IActionResult AdicionaFilme([FromBody] CreateFilmeDto filmeDto)
         {
             Filme filme = _mapper.Map<Filme>(filmeDto);
 
@@ -34,9 +34,25 @@ namespace FilmesAPI.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Filme> RecuperaFilmes()
+        public IActionResult RecuperaFilmes([FromQuery] int? classificacaoEtaria = null)
         {
-            return _context.Filmes;
+            List<Filme> filmes;
+            if(classificacaoEtaria == null)
+            {
+                filmes = _context.Filmes.ToList();
+            }
+            else
+            {
+                filmes = _context.Filmes
+                    .Where(filme => filme.ClassificacaoEtaria <= classificacaoEtaria)
+                    .ToList();
+            }
+
+            if (filmes == null) return NotFound();
+
+            List<ReadFilmeDto> readDto = _mapper.Map<List<ReadFilmeDto>>(filmes);
+
+            return Ok(readDto);
         }
 
         [HttpGet("{id}")]
@@ -46,12 +62,12 @@ namespace FilmesAPI.Controllers
 
             if (filme is null) return NotFound();
             
-            ReadEnderecoDto filmeDto = _mapper.Map<ReadEnderecoDto>(filme);
+            ReadFilmeDto filmeDto = _mapper.Map<ReadFilmeDto>(filme);
             return Ok(filmeDto);
         }
 
         [HttpPut("{id}")]
-        public IActionResult AtualizaFilme(int id, [FromBody] UpdateEnderecoDto filmeDto)
+        public IActionResult AtualizaFilme(int id, [FromBody] UpdateFilmeDto filmeDto)
         {
             Filme filme = _context.Filmes.FirstOrDefault(filme => filme.Id == id);
 
