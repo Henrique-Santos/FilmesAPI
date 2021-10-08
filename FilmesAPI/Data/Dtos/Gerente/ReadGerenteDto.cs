@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FilmesAPI.Models;
-
-namespace FilmesAPI.Data.Dtos.Gerente
+﻿namespace FilmesAPI.Data.Dtos.Gerente
 {
     public class ReadGerenteDto
     {
