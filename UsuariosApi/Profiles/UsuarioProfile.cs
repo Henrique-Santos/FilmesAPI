@@ -13,6 +13,7 @@ namespace UsuariosApi.Profiles
         public UsuarioProfile()
         {
             CreateMap<CreateUsuarioDto, Usuario>();
+            CreateMap<Usuario, IdentityUser<int>>();
         }
     }
 }
