@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using UsuariosApi.Data;
+using UsuariosApi.Services;
 
 namespace UsuariosApi
 {

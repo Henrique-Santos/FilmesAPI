@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using UsuariosApi.Data.Dtos;
 using FluentResults;
+using UsuariosApi.Services;
 
 namespace UsuariosApi.Controllers
 {
